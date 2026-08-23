@@ -1,4 +1,6 @@
 package com.yume24.rendezvous.security;
 
-public record AnonymousLoginDTO(String username) {
+import jakarta.validation.constraints.NotBlank;
+
+public record AnonymousLoginDTO(@NotBlank String username) {
 }

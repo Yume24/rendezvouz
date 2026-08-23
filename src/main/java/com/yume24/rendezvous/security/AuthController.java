@@ -1,5 +1,6 @@
 package com.yume24.rendezvous.security;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,7 +15,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login/anonymous")
-    Mono<TokensDTO> anonymousLogin(@RequestBody AnonymousLoginDTO anonymousLoginDTO) {
+    Mono<TokensDTO> anonymousLogin(@Valid @RequestBody AnonymousLoginDTO anonymousLoginDTO) {
         return authService.anonymousLogin(anonymousLoginDTO.username());
     }
 
