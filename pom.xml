@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.yume24</groupId>
-    <artifactId>rendevouz</artifactId>
+    <artifactId>rendezvouz</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>rendevouz</name>
-    <description>rendevouz</description>
+    <description>rendezvous</description>
     <url/>
     <licenses>
         <license/>
