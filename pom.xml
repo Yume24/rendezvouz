@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.yume24</groupId>
-    <artifactId>rendezvouz</artifactId>
+    <artifactId>rendezvous</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>rendezvouz</name>
-    <description>rendezvouz</description>
+    <name>rendezvous</name>
+    <description>rendezvous</description>
     <url/>
     <licenses>
         <license/>
@@ -130,6 +130,7 @@
                                 <path>
                                     <groupId>org.mapstruct</groupId>
                                     <artifactId>mapstruct-processor</artifactId>
+                                    <version>1.6.3</version>
                                 </path>
                             </annotationProcessorPaths>
                         </configuration>

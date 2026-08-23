@@ -2,7 +2,7 @@ spring:
   application:
     name: rendezvous
   r2dbc:
-    url: r2dbc:postgresql://localhost:5432/rendezvouz
+    url: r2dbc:postgresql://localhost:5432/rendezvous
     username: postgres
     password: supersecretpassword
 jwt:
