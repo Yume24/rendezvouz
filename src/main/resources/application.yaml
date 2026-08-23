@@ -5,6 +5,9 @@ spring:
     url: r2dbc:postgresql://localhost:5432/rendezvous
     username: postgres
     password: supersecretpassword
+  sql:
+    init:
+      mode: always
 jwt:
   secret: supersecret394823-94893-19pfijewpifjdqeprjwjpewfjwpeitj2r43p9
   issuer: rendezvous
