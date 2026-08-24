@@ -15,8 +15,6 @@ import java.util.UUID;
 @Getter
 @Setter
 public class User {
-    @Column("password")
-    String password;
     @Id
     @Column("id")
     private UUID id;
@@ -26,6 +24,8 @@ public class User {
     private Instant createdAt;
     @Column("role")
     private UserRole role;
+    @Column("password")
+    private String password;
 
     public enum UserRole {
         ANONYMOUS,
