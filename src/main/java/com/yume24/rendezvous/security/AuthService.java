@@ -18,7 +18,7 @@ public class AuthService {
 
     public Mono<TokensDTO> anonymousLogin(String username) {
         return userService.createAnonymousUser(username)
-                .map(user -> jwtService.createJwt(user.id(), Set.of(User.UserRole.ANONYMOUS), Optional.empty()))
+                .map(user -> jwtService.createJwt(user.id().toString(), Set.of(User.UserRole.ANONYMOUS), Optional.empty()))
                 .map(TokensDTO::new);
     }
 }

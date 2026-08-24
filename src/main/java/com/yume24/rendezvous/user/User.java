@@ -24,6 +24,8 @@ public class User {
     private Instant createdAt;
     @Column("role")
     private UserRole role;
+    @Column("password")
+    String password;
 
     public enum UserRole {
         ANONYMOUS,

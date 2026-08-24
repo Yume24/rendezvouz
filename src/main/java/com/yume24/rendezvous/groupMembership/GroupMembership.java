@@ -16,7 +16,6 @@ record GroupMembershipKey(UUID userId, UUID groupId) {
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 public class GroupMembership {
     @Id
     private GroupMembershipKey id;

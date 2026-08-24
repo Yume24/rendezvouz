@@ -26,9 +26,6 @@ public class SecurityConfiguration {
     SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         return http
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
-                .httpBasic(ServerHttpSecurity.HttpBasicSpec::disable)
-                .formLogin(ServerHttpSecurity.FormLoginSpec::disable)
-                .logout(ServerHttpSecurity.LogoutSpec::disable)
                 .cors(ServerHttpSecurity.CorsSpec::disable)
                 .oauth2ResourceServer(oAuth2 -> oAuth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())))
                 .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
