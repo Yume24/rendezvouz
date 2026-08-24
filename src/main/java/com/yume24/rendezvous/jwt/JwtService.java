@@ -25,7 +25,7 @@ public class JwtService {
     @Value("${jwt.access.expiry}")
     private long expiry;
 
-    public String createJwt(String subject, Collection<User.UserRole> roles, Optional<Map<String, Object>> claims) {
+    public String createJwt(String subject, Collection<User.UserRole> roles) {
         var now = Instant.now();
         var claimsSet = JwtClaimsSet.builder().
                 subject(subject)
@@ -33,7 +33,6 @@ public class JwtService {
                 .issuedAt(now)
                 .expiresAt(now.plusSeconds(expiry))
                 .claim(ROLE_CLAIM, roles.stream().map(role -> ROLE_PREFIX + role.name()).toList())
-                .claims(claimMap -> claims.ifPresent(claimMap::putAll))
                 .build();
         return jwtEncoder.encode(JwtEncoderParameters.from(claimsSet)).getTokenValue();
     }
