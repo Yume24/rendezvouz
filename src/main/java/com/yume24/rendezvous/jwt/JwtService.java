@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.util.Collection;
-import java.util.Map;
-import java.util.Optional;
 
 import static com.yume24.rendezvous.jwt.JwtConfiguration.ROLE_CLAIM;
 import static com.yume24.rendezvous.jwt.JwtConfiguration.ROLE_PREFIX;
