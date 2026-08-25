@@ -4,5 +4,6 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-    UserDTO toDto(User user);
+    UserDTO toDto(AnoynymousUser anoynymousUser);
+    UserDTO toDto(RegisteredUser user);
 }

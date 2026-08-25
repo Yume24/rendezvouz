@@ -14,21 +14,10 @@ import java.util.UUID;
 @Builder
 @Getter
 @Setter
-public class User {
+public sealed class User permits AnoynymousUser, RegisteredUser {
     @Id
     @Column("id")
-    private UUID id;
-    @Column("username")
-    private String username;
+    protected UUID id;
     @Column("created_at")
-    private Instant createdAt;
-    @Column("role")
-    private UserRole role;
-    @Column("password")
-    private String password;
-
-    public enum UserRole {
-        ANONYMOUS,
-        USER
-    }
+    protected Instant createdAt;
 }
