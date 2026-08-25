@@ -1,4 +1,4 @@
 package com.yume24.rendezvous.group;
 
-public record GroupCreateRequest(String name) {
+record GroupCreateRequest(String name) {
 }

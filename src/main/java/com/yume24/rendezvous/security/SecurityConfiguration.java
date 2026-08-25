@@ -19,7 +19,7 @@ import static com.yume24.rendezvous.jwt.JwtConfiguration.ROLE_PREFIX;
 
 @Configuration
 @EnableWebFluxSecurity
-public class SecurityConfiguration {
+class SecurityConfiguration {
     private static final String AUTH_PATH_MATCHER = "/auth/**";
 
     @Bean

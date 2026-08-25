@@ -14,7 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-public class Group {
+class Group {
     @Id
     private UUID ID;
 
