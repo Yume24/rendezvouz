@@ -1,7 +1,7 @@
 package com.yume24.rendezvous.r2dbc;
 
-import com.yume24.rendezvous.user.RoleToStringConverter;
-import com.yume24.rendezvous.user.StringToRoleConverter;
+import com.yume24.rendezvous.user.converters.RoleToStringConverter;
+import com.yume24.rendezvous.user.converters.StringToRoleConverter;
 import io.r2dbc.spi.ConnectionFactory;
 import lombok.RequiredArgsConstructor;
 import org.jspecify.annotations.NonNull;

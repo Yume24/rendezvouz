@@ -1,4 +1,4 @@
-package com.yume24.rendezvous.user;
+package com.yume24.rendezvous.user.entities;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -9,14 +9,16 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.UUID;
 
-@Table("anonymous_users")
+@Table("registered_users")
+@Builder
 @Getter
 @Setter
-@Builder
-public class AnonymousUser {
+public class RegisteredUser {
     @Id
     @Column("id")
     private UUID id;
     @Column("username")
     private String username;
+    @Column("password")
+    private String password;
 }

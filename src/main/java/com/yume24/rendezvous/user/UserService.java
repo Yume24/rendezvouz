@@ -1,5 +1,10 @@
 package com.yume24.rendezvous.user;
 
+import com.yume24.rendezvous.user.entities.AnonymousUser;
+import com.yume24.rendezvous.user.entities.RegisteredUser;
+import com.yume24.rendezvous.user.repositories.AnonymousUserRepository;
+import com.yume24.rendezvous.user.repositories.RegisteredUserRepository;
+import com.yume24.rendezvous.user.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

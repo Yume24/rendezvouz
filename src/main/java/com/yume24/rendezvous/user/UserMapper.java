@@ -1,5 +1,8 @@
 package com.yume24.rendezvous.user;
 
+import com.yume24.rendezvous.user.entities.AnonymousUser;
+import com.yume24.rendezvous.user.entities.RegisteredUser;
+import com.yume24.rendezvous.user.entities.User;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

@@ -1,5 +1,6 @@
-package com.yume24.rendezvous.user;
+package com.yume24.rendezvous.user.entities;
 
+import com.yume24.rendezvous.user.Role;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +15,7 @@ import java.util.UUID;
 @Builder
 @Getter
 @Setter
-class User {
+public class User {
     @Id
     @Column("id")
     private UUID id;
