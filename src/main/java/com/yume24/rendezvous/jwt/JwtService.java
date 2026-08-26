@@ -1,6 +1,6 @@
 package com.yume24.rendezvous.jwt;
 
-import com.yume24.rendezvous.user.User;
+import com.yume24.rendezvous.user.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
@@ -23,7 +23,7 @@ public class JwtService {
     @Value("${jwt.access.expiry}")
     private long expiry;
 
-    public String createJwt(String subject, Collection<User.UserRole> roles) {
+    public String createJwt(String subject, Collection<Role> roles) {
         var now = Instant.now();
         var claimsSet = JwtClaimsSet.builder().
                 subject(subject)

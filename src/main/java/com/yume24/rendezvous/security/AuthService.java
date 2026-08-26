@@ -1,7 +1,6 @@
 package com.yume24.rendezvous.security;
 
 import com.yume24.rendezvous.jwt.JwtService;
-import com.yume24.rendezvous.user.User;
 import com.yume24.rendezvous.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ public class AuthService {
 
     public Mono<TokensDTO> anonymousLogin(String username) {
         return userService.createAnonymousUser(username)
-                .map(user -> jwtService.createJwt(user.id().toString(), Set.of(User.UserRole.ANONYMOUS)))
+                .map(user -> jwtService.createJwt(user.id().toString(), Set.of(user.role())))
                 .map(TokensDTO::new);
     }
 }
