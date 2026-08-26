@@ -17,7 +17,9 @@ import java.util.UUID;
 class User {
     @Id
     @Column("id")
-    protected UUID id;
+    private UUID id;
     @Column("created_at")
-    protected Instant createdAt;
+    private Instant createdAt;
+    @Column("role")
+    private Role role;
 }
