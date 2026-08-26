@@ -14,7 +14,7 @@ import java.util.UUID;
 @Builder
 @Getter
 @Setter
-public sealed class User permits AnoynymousUser, RegisteredUser {
+class User {
     @Id
     @Column("id")
     protected UUID id;

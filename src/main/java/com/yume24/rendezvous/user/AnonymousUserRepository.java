@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface AnonymousUserRepository extends ReactiveCrudRepository<AnoynymousUser, UUID> {
+interface AnonymousUserRepository extends ReactiveCrudRepository<AnonymousUser, UUID> {
 }

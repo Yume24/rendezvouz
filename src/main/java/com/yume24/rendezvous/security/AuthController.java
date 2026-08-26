@@ -1,5 +1,6 @@
 package com.yume24.rendezvous.security;
 
+import com.yume24.rendezvous.user.UserDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;

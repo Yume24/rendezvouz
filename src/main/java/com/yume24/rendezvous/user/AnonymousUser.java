@@ -10,7 +10,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @Getter
 @Setter
 @Builder
-public final class AnoynymousUser extends User {
+public class AnonymousUser {
     @Column("username")
     private String username;
 }

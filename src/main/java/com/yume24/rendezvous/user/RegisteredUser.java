@@ -10,7 +10,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @Builder
 @Getter
 @Setter
-public final class RegisteredUser extends User {
+public class RegisteredUser {
     @Column("username")
     private String username;
     @Column("password")

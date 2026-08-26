@@ -1,4 +1,6 @@
 package com.yume24.rendezvous.user;
 
-public record UserDTO(String username) {
+import java.util.UUID;
+
+public record UserDTO(UUID id, String username) {
 }

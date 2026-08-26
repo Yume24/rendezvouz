@@ -3,7 +3,9 @@ package com.yume24.rendezvous.user;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
-public interface UserMapper {
-    UserDTO toDto(AnoynymousUser anoynymousUser);
+interface UserMapper {
+    UserDTO toDto(AnonymousUser anonymousUser);
     UserDTO toDto(RegisteredUser user);
+    User toEntity(AnonymousUser anonymousUser);
+    User toEntity(RegisteredUser registeredUser);
 }
