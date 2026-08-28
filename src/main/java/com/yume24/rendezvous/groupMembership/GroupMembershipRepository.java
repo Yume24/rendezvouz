@@ -1,8 +1,0 @@
-package com.yume24.rendezvous.groupMembership;
-
-import org.springframework.data.repository.reactive.ReactiveCrudRepository;
-import org.springframework.stereotype.Repository;
-
-@Repository
-interface GroupMembershipRepository extends ReactiveCrudRepository<GroupMembership, GroupMembershipKey> {
-}

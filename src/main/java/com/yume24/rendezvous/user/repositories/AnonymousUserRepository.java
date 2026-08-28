@@ -1,6 +1,6 @@
 package com.yume24.rendezvous.user.repositories;
 
-import com.yume24.rendezvous.user.entities.AnonymousUser;
+import com.yume24.rendezvous.user.entity.AnonymousUser;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
 

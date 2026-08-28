@@ -1,6 +1,6 @@
 package com.yume24.rendezvous.jwt;
 
-import com.yume24.rendezvous.user.Role;
+import com.yume24.rendezvous.user.entity.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
