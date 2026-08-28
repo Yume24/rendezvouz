@@ -1,8 +1,8 @@
 package com.yume24.rendezvous.groupMembership.service;
 
-import com.yume24.rendezvous.groupMembership.exception.UserAlreadyInGroupException;
 import com.yume24.rendezvous.groupMembership.entity.GroupMembership;
 import com.yume24.rendezvous.groupMembership.entity.GroupMembershipKey;
+import com.yume24.rendezvous.groupMembership.exception.UserAlreadyInGroupException;
 import com.yume24.rendezvous.groupMembership.repository.GroupMembershipRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
