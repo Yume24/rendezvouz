@@ -2,6 +2,7 @@ package com.yume24.rendezvous.user;
 
 import com.yume24.rendezvous.user.entities.AnonymousUser;
 import com.yume24.rendezvous.user.entities.RegisteredUser;
+import com.yume24.rendezvous.user.exceptions.UserNotFoundException;
 import com.yume24.rendezvous.user.repositories.AnonymousUserRepository;
 import com.yume24.rendezvous.user.repositories.RegisteredUserRepository;
 import com.yume24.rendezvous.user.repositories.UserRepository;
@@ -41,8 +42,9 @@ public class UserService {
                         .map(userMapper::toDto));
     }
 
-    public Mono<RegisteredUser> getRegisteredUser(UUID id) {
-        return registeredUserRepository.findById(id);
+    public Mono<RegisteredUser> findRegisteredUserByUsername(String username) {
+        return registeredUserRepository.findByUsername(username)
+                .switchIfEmpty(Mono.error(new UserNotFoundException(username)));
     }
 
     public Mono<AnonymousUser> getAnonymousUser(UUID id) {

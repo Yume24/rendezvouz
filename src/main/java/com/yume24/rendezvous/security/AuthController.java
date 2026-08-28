@@ -1,5 +1,8 @@
 package com.yume24.rendezvous.security;
 
+import com.yume24.rendezvous.security.dtos.AnonymousLoginDTO;
+import com.yume24.rendezvous.security.dtos.LoginDTO;
+import com.yume24.rendezvous.security.dtos.RegisterDTO;
 import com.yume24.rendezvous.user.UserDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +25,11 @@ class AuthController {
 
     @PostMapping("/register")
     Mono<UserDTO> register(@Valid @RequestBody RegisterDTO registerDTO) {
-        return Mono.empty();
+        return authService.register(registerDTO.username(), registerDTO.password());
+    }
+
+    @PostMapping("/login")
+    Mono<TokensDTO> login(@Valid @RequestBody LoginDTO loginDTO) {
+        return authService.login(loginDTO.username(), loginDTO.password());
     }
 }

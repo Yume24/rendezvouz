@@ -1,5 +1,6 @@
 package com.yume24.rendezvous.user.entities;
 
+import com.yume24.rendezvous.user.Role;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +15,8 @@ import java.util.UUID;
 @Getter
 @Setter
 public class RegisteredUser {
+    public static final Role DEFAULT_ROLE = Role.USER;
+
     @Id
     @Column("id")
     private UUID id;
