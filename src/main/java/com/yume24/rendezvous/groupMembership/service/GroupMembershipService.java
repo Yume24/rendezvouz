@@ -18,11 +18,10 @@ public class GroupMembershipService {
     private final GroupService groupService;
 
     public Mono<Void> addUserToGroup(UUID userId, UUID groupId) {
-        return groupService
-                .checkIfGroupExists(groupId)
-                .then(checkUserInGroup(userId, groupId)
+        return groupService.checkIfGroupExists(groupId)
+                .then(checkUserInGroup(userId, groupId))
                 .then(groupMembershipRepository.save(new GroupMembership(userId, groupId)))
-                .then());
+                .then();
     }
 
     public Mono<Void> checkUserInGroup(UUID userId, UUID groupId) {

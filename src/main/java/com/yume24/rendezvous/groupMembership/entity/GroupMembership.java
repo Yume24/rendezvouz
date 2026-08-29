@@ -13,10 +13,10 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 public class GroupMembership {
+    @Id
+    private GroupMembershipKey id;
+
     public GroupMembership(UUID userId, UUID groupId) {
         this.id = new GroupMembershipKey(userId, groupId);
     }
-
-    @Id
-    private GroupMembershipKey id;
 }
