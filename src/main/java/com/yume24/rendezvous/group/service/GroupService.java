@@ -32,4 +32,16 @@ public class GroupService {
                     }
                 });
     }
+
+    public Mono<Void> deleteGroup(UUID groupId, UUID ownerId) {
+        return groupRepository.findById(groupId)
+                .switchIfEmpty(Mono.error(new GroupDoesNotExistsException(groupId.toString())))
+                .flatMap(group -> {
+                    if (group.getCreatedBy().equals(ownerId)) {
+                        return groupRepository.deleteById(groupId);
+                    } else {
+                        return Mono.error(new GroupDoesNotExistsException(groupId.toString()));
+                    }
+                });
+    }
 }

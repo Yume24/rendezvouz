@@ -1,8 +1,8 @@
 package com.yume24.rendezvous.group.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
@@ -11,9 +11,9 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Table("groups")
-@NoArgsConstructor
 @Builder
-@AllArgsConstructor
+@Getter
+@Setter
 public class Group {
     @Id
     private UUID ID;

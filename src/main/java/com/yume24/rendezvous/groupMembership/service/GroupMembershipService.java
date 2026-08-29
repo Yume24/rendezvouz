@@ -1,5 +1,6 @@
 package com.yume24.rendezvous.groupMembership.service;
 
+import com.yume24.rendezvous.group.service.GroupService;
 import com.yume24.rendezvous.groupMembership.entity.GroupMembership;
 import com.yume24.rendezvous.groupMembership.entity.GroupMembershipKey;
 import com.yume24.rendezvous.groupMembership.exception.UserAlreadyInGroupException;
@@ -14,12 +15,15 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class GroupMembershipService {
     private final GroupMembershipRepository groupMembershipRepository;
+    private final GroupService groupService;
 
     public Mono<Void> addUserToGroup(UUID userId, UUID groupId) {
-        var key = new GroupMembershipKey(userId, groupId);
-        return checkUserInGroup(key).then(
-                groupMembershipRepository.save(new GroupMembership(key))
-        ).then();
+        return groupService.checkIfGroupExists(groupId).then(Mono.defer(() -> {
+            var key = new GroupMembershipKey(userId, groupId);
+            return checkUserInGroup(key).then(
+                    groupMembershipRepository.save(new GroupMembership(key))
+            ).then();
+        }));
     }
 
     public Mono<Void> checkUserInGroup(UUID userId, UUID groupId) {

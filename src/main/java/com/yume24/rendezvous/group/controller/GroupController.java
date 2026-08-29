@@ -25,4 +25,10 @@ class GroupController {
         var userId = UUID.fromString(Objects.requireNonNull(jwt.getSubject()));
         return groupService.createGroup(groupCreateRequest.name(), userId);
     }
+
+    @DeleteMapping("/{groupId}")
+    Mono<Void> deleteGroup(@AuthenticationPrincipal Jwt jwt, @PathVariable UUID groupId) {
+        var userId = UUID.fromString(Objects.requireNonNull(jwt.getSubject()));
+        return groupService.deleteGroup(groupId, userId);
+    }
 }
