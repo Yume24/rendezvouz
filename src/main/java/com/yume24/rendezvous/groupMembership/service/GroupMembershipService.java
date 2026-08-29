@@ -18,28 +18,23 @@ public class GroupMembershipService {
     private final GroupService groupService;
 
     public Mono<Void> addUserToGroup(UUID userId, UUID groupId) {
-        return groupService.checkIfGroupExists(groupId).then(Mono.defer(() -> {
-            var key = new GroupMembershipKey(userId, groupId);
-            return checkUserInGroup(key).then(
-                    groupMembershipRepository.save(new GroupMembership(key))
-            ).then();
-        }));
+        return groupService
+                .checkIfGroupExists(groupId)
+                .then(checkUserInGroup(userId, groupId)
+                .then(groupMembershipRepository.save(new GroupMembership(userId, groupId)))
+                .then());
     }
 
     public Mono<Void> checkUserInGroup(UUID userId, UUID groupId) {
         var key = new GroupMembershipKey(userId, groupId);
-        return checkUserInGroup(key);
+        return groupMembershipRepository.existsById(key).handle((exists, sink) -> {
+            if (exists) sink.error(new UserAlreadyInGroupException(key.toString()));
+            else sink.complete();
+        });
     }
 
     public Mono<Void> removeUserFromGroup(UUID userId, UUID groupId) {
         var key = new GroupMembershipKey(userId, groupId);
         return groupMembershipRepository.deleteById(key);
-    }
-
-    private Mono<Void> checkUserInGroup(GroupMembershipKey key) {
-        return groupMembershipRepository.existsById(key).handle((exists, sink) -> {
-            if (exists) sink.error(new UserAlreadyInGroupException(key.toString()));
-            else sink.complete();
-        });
     }
 }

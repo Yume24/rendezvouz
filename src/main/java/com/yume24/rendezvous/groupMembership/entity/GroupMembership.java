@@ -6,11 +6,17 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
+import java.util.UUID;
+
 @Table("users_groups")
 @Getter
 @Setter
 @AllArgsConstructor
 public class GroupMembership {
+    public GroupMembership(UUID userId, UUID groupId) {
+        this.id = new GroupMembershipKey(userId, groupId);
+    }
+
     @Id
     private GroupMembershipKey id;
 }
