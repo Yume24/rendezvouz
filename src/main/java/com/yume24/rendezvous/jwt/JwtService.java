@@ -20,7 +20,7 @@ public class JwtService {
     private final JwtEncoder jwtEncoder;
     @Value("${jwt.issuer}")
     private String issuer;
-    @Value("${jwt.access.expiry}")
+    @Value("${jwt.expiry.access}")
     private long expiry;
 
     public String createJwt(String subject, Collection<Role> roles) {

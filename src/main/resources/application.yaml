@@ -8,5 +8,8 @@ spring:
 jwt:
   secret: supersecret394823-94893-19pfijewpifjdqeprjwjpewfjwpeitj2r43p9
   issuer: rendezvous
-  access:
-    expiry: 3600
+  expiry:
+    access: 3600
+logging:
+  level:
+    org.springframework.r2dbc: DEBUG
