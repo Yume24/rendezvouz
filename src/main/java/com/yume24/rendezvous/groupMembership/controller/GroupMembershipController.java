@@ -13,7 +13,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/group")
 @RequiredArgsConstructor
-class GroupMembershipController {
+public class GroupMembershipController {
     private final GroupMembershipService groupMembershipService;
 
     @PostMapping("/{groupId}/join")

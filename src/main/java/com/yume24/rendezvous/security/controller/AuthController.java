@@ -17,7 +17,7 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-class AuthController {
+public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login/anonymous")

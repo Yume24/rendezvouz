@@ -16,7 +16,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/group")
 @RequiredArgsConstructor
-class GroupController {
+public class GroupController {
     private final GroupService groupService;
 
     @PostMapping
