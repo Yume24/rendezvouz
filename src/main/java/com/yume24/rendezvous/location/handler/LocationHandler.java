@@ -3,6 +3,7 @@ package com.yume24.rendezvous.location.handler;
 import com.yume24.rendezvous.websocket.handler.AbstractWebsocketHandler;
 import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.socket.WebSocketMessage;
 import org.springframework.web.reactive.socket.WebSocketSession;
 import reactor.core.publisher.Mono;
 
@@ -17,6 +18,6 @@ public class LocationHandler extends AbstractWebsocketHandler {
     @Override
     @NonNull
     public Mono<Void> handle(@NonNull WebSocketSession session) {
-        return session.send(session.receive());
+        return session.send(session.receive().map(WebSocketMessage::retain));
     }
 }
