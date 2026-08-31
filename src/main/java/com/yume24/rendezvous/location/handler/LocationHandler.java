@@ -4,10 +4,7 @@ import com.yume24.rendezvous.websocket.handler.AbstractWebsocketHandler;
 import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.socket.WebSocketSession;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.time.Duration;
 
 @Component
 public class LocationHandler extends AbstractWebsocketHandler {
@@ -19,6 +16,6 @@ public class LocationHandler extends AbstractWebsocketHandler {
     @Override
     @NonNull
     public Mono<Void> handle(@NonNull WebSocketSession session) {
-        return session.send(Flux.interval(Duration.ofSeconds(1)).map(i -> session.textMessage(String.valueOf(i))));
+        return session.send(session.receive());
     }
 }
