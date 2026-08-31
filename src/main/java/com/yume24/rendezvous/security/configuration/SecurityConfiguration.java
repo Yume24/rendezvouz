@@ -31,7 +31,7 @@ class SecurityConfiguration {
                 .cors(ServerHttpSecurity.CorsSpec::disable)
                 .oauth2ResourceServer(oAuth2 -> oAuth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())))
                 .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
-                .authorizeExchange(ex -> ex.pathMatchers(AUTH_PATH_MATCHER).permitAll().pathMatchers("/ws").permitAll().anyExchange().authenticated())
+                .authorizeExchange(ex -> ex.pathMatchers(AUTH_PATH_MATCHER).permitAll().pathMatchers("/ws/**").permitAll().anyExchange().authenticated())
                 .build();
     }
 
