@@ -5,7 +5,6 @@ import com.yume24.rendezvous.group.entity.Group;
 import com.yume24.rendezvous.group.exception.GroupDoesNotExistsException;
 import com.yume24.rendezvous.group.repository.GroupRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
@@ -16,7 +15,6 @@ import java.util.UUID;
 public class GroupService {
     private final GroupRepository groupRepository;
     private final GroupMapper groupMapper;
-    private final GroupExistenceCache groupExistenceCache;
 
     public Mono<GroupDTO> createGroup(String name, UUID createdBy) {
         var group = Group.builder().name(name).createdBy(createdBy).build();
@@ -24,14 +22,17 @@ public class GroupService {
     }
 
     public Mono<Void> checkIfGroupExists(UUID groupID) {
-        return groupExistenceCache
-                .isGroupExists(groupID)
-                .filter(Boolean::booleanValue)
-                .switchIfEmpty(Mono.error(new GroupDoesNotExistsException(groupID.toString())))
-                .then();
+        return groupRepository
+                .existsById(groupID)
+                .handle((exists, sink) -> {
+                    if (exists) {
+                        sink.complete();
+                    } else {
+                        sink.error(new GroupDoesNotExistsException(groupID.toString()));
+                    }
+                });
     }
 
-    @CacheEvict("groupExists")
     public Mono<Void> deleteGroup(UUID groupId, UUID ownerId) {
         return groupRepository.findById(groupId)
                 .switchIfEmpty(Mono.error(new GroupDoesNotExistsException(groupId.toString())))
