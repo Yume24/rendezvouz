@@ -13,6 +13,7 @@ public class LocationHandler extends AbstractWebsocketHandler {
     public LocationHandler() {
         super(PATH);
     }
+
     @Override
     @NonNull
     public Mono<Void> handle(@NonNull WebSocketSession session) {
