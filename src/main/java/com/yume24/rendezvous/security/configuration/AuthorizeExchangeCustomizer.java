@@ -1,8 +1,8 @@
 package com.yume24.rendezvous.security.configuration;
 
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.config.web.server.ServerHttpSecurity.AuthorizeExchangeSpec;
 
 public interface AuthorizeExchangeCustomizer {
-    Customizer<ServerHttpSecurity.AuthorizeExchangeSpec> getAuthorizeExchangeCustomizer();
+    Customizer<AuthorizeExchangeSpec> getAuthorizeExchangeCustomizer();
 }
