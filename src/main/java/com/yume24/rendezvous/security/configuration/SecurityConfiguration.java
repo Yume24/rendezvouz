@@ -16,22 +16,25 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.context.NoOpServerSecurityContextRepository;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+
 import static com.yume24.rendezvous.jwt.JwtConfiguration.ROLE_CLAIM;
 import static com.yume24.rendezvous.jwt.JwtConfiguration.ROLE_PREFIX;
 
 @Configuration
 @EnableWebFluxSecurity
 class SecurityConfiguration {
-    private static final String AUTH_PATH_MATCHER = "/auth/**";
 
     @Bean
-    SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
+    SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http, List<AuthorizeExchangeCustomizer> exchangeAuthorizers) {
+        exchangeAuthorizers.forEach(customizer -> http.authorizeExchange(customizer.getAuthorizeExchangeCustomizer()));
+
         return http
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .cors(ServerHttpSecurity.CorsSpec::disable)
                 .oauth2ResourceServer(oAuth2 -> oAuth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())))
                 .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
-                .authorizeExchange(ex -> ex.pathMatchers(AUTH_PATH_MATCHER).permitAll().pathMatchers("/ws/**").permitAll().anyExchange().authenticated())
+                .authorizeExchange(ex -> ex.anyExchange().authenticated())
                 .build();
     }
 
