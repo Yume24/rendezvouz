@@ -8,12 +8,10 @@ import com.yume24.rendezvous.security.service.AuthService;
 import com.yume24.rendezvous.user.dto.UserDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.web.server.ServerHttpSecurity.AuthorizeExchangeSpec;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -29,6 +27,7 @@ public class AuthController implements Customizer<AuthorizeExchangeSpec> {
     }
 
     @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
     Mono<UserDTO> register(@Valid @RequestBody RegisterDTO registerDTO) {
         return authService.register(registerDTO.username(), registerDTO.password());
     }
