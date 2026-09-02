@@ -4,8 +4,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.config.web.server.ServerHttpSecurity.AuthorizeExchangeSpec;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -26,9 +28,8 @@ import static com.yume24.rendezvous.jwt.JwtConfiguration.ROLE_PREFIX;
 class SecurityConfiguration {
 
     @Bean
-    SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http, List<AuthorizeExchangeCustomizer> exchangeAuthorizers) {
-        exchangeAuthorizers.forEach(customizer -> http.authorizeExchange(customizer.getAuthorizeExchangeCustomizer()));
-
+    SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http, List<Customizer<AuthorizeExchangeSpec>> exchangeSpecCustomizers) {
+        exchangeSpecCustomizers.forEach(http::authorizeExchange);
         return http
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .cors(ServerHttpSecurity.CorsSpec::disable)
