@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -22,7 +23,7 @@ public class AuthService {
 
     public Mono<TokensDTO> anonymousLogin(String username) {
         return userService.createAnonymousUser(username)
-                .map(user -> jwtService.createJwt(user.id().toString(), Set.of(user.role())))
+                .map(user -> jwtService.createAccessJwt(user.id().toString(), Optional.of(Set.of(user.role()))))
                 .map(TokensDTO::new);
     }
 
@@ -36,7 +37,7 @@ public class AuthService {
         return userService.findRegisteredUserByUsername(username)
                 .flatMap(user -> {
                     if (passwordEncoder.matches(password, user.getPassword())) {
-                        var jwt = jwtService.createJwt(user.getId().toString(), Set.of(RegisteredUser.DEFAULT_ROLE));
+                        var jwt = jwtService.createAccessJwt(user.getId().toString(), Optional.of(Set.of(RegisteredUser.DEFAULT_ROLE)));
                         return Mono.just(new TokensDTO(jwt));
                     }
                     return Mono.error(new IncorrectCredentialsException());

@@ -10,6 +10,7 @@ jwt:
   issuer: rendezvous
   expiry:
     access: 3600
+    ticket: 30
 logging:
   level:
     org.springframework.r2dbc: DEBUG
