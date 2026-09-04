@@ -1,7 +1,7 @@
 package com.yume24.rendezvous.websocket.controller;
 
-import com.yume24.rendezvous.websocket.dto.TicketDTO;
-import com.yume24.rendezvous.websocket.service.TicketService;
+import com.yume24.rendezvous.websocket.ticket.dto.TicketDTO;
+import com.yume24.rendezvous.websocket.ticket.service.TicketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;

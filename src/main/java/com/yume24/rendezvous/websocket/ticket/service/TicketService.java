@@ -1,7 +1,8 @@
-package com.yume24.rendezvous.websocket.service;
+package com.yume24.rendezvous.websocket.ticket.service;
 
 import com.yume24.rendezvous.jwt.JwtService;
-import com.yume24.rendezvous.websocket.dto.TicketDTO;
+import com.yume24.rendezvous.websocket.ticket.dto.TicketDTO;
+import com.yume24.rendezvous.websocket.ticket.repository.TicketRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -10,6 +11,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class TicketService {
     private final JwtService jwtService;
+    private final TicketRepository ticketRepository;
 
     public Mono<TicketDTO> createTicket(String userId) {
         var jwt = jwtService.createTicketJwt(userId);
