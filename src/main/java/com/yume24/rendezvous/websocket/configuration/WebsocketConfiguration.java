@@ -8,6 +8,8 @@ import org.springframework.web.reactive.HandlerAdapter;
 import org.springframework.web.reactive.HandlerMapping;
 import org.springframework.web.reactive.handler.SimpleUrlHandlerMapping;
 import org.springframework.web.reactive.result.SimpleHandlerAdapter;
+import org.springframework.web.reactive.result.method.annotation.RequestMappingHandlerAdapter;
+import org.springframework.web.reactive.socket.server.support.WebSocketHandlerAdapter;
 
 import java.util.List;
 import java.util.function.Function;
@@ -19,7 +21,7 @@ public class WebsocketConfiguration {
 
     @Bean
     public HandlerAdapter handlerAdapter() {
-        return new SimpleHandlerAdapter();
+        return new WebSocketHandlerAdapter();
     }
 
     @Bean
