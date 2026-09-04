@@ -15,6 +15,10 @@ public class TicketService {
 
     public Mono<TicketDTO> createTicket(String userId) {
         var jwt = jwtService.createTicketJwt(userId);
-        return Mono.empty();
+        return ticketRepository.saveTicket(userId, jwt).thenReturn(new TicketDTO(jwt));
+    }
+
+    public Mono<String> getTicket(String userId) {
+        return ticketRepository.getTicket(userId);
     }
 }
