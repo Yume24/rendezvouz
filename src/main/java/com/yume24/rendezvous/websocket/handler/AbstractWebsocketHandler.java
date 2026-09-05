@@ -5,13 +5,14 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.web.server.ServerHttpSecurity.AuthorizeExchangeSpec;
 import org.springframework.web.reactive.socket.WebSocketHandler;
 
+import static com.yume24.rendezvous.websocket.configuration.WebsocketConfiguration.WEBSOCKET_PATH;
+
 @Getter
 public abstract class AbstractWebsocketHandler implements WebSocketHandler, Customizer<AuthorizeExchangeSpec> {
-    private static final String HANDLER_PATH = "/ws";
     private final String path;
 
     public AbstractWebsocketHandler(String path) {
-        this.path = HANDLER_PATH + path;
+        this.path = WEBSOCKET_PATH + path;
     }
 
     @Override

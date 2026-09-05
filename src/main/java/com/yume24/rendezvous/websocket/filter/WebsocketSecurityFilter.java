@@ -12,6 +12,8 @@ import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
 
+import static com.yume24.rendezvous.websocket.configuration.WebsocketConfiguration.WEBSOCKET_PATH;
+
 @Component
 @RequiredArgsConstructor
 public class WebsocketSecurityFilter implements WebFilter {
@@ -21,13 +23,15 @@ public class WebsocketSecurityFilter implements WebFilter {
     @Override
     @NonNull
     public Mono<Void> filter(@NonNull ServerWebExchange exchange, @NonNull WebFilterChain chain) {
-        return exchange
-                .getPrincipal()
-                .cast(Authentication.class)
-                .switchIfEmpty(authenticate(exchange))
-                .flatMap(authentication -> chain
-                                .filter(exchange)
-                                .contextWrite(ReactiveSecurityContextHolder.withAuthentication(authentication)));
+        if (exchange.getRequest().getPath().value().startsWith(WEBSOCKET_PATH)) {
+            return exchange.getPrincipal()
+                    .cast(Authentication.class)
+                    .switchIfEmpty(Mono.defer(() -> authenticate(exchange)))
+                    .flatMap(authentication -> chain.filter(exchange)
+                            .contextWrite(ReactiveSecurityContextHolder.withAuthentication(authentication)));
+        }
+
+        return chain.filter(exchange);
     }
 
     private Mono<Authentication> authenticate(ServerWebExchange exchange) {
