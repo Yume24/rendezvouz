@@ -1,5 +1,6 @@
 package com.yume24.rendezvous.user.entity;
 
+import java.util.UUID;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,20 +8,20 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.util.UUID;
-
 @Table("registered_users")
 @Builder
 @Getter
 @Setter
 public class RegisteredUser {
-    public static final Role DEFAULT_ROLE = Role.USER;
+  public static final Role DEFAULT_ROLE = Role.USER;
 
-    @Id
-    @Column("id")
-    private UUID id;
-    @Column("username")
-    private String username;
-    @Column("password")
-    private String password;
+  @Id
+  @Column("id")
+  private UUID id;
+
+  @Column("username")
+  private String username;
+
+  @Column("password")
+  private String password;
 }

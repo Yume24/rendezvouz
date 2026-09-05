@@ -6,5 +6,4 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.UNAUTHORIZED)
 @NoArgsConstructor
-public class IncorrectCredentialsException extends RuntimeException {
-}
+public class IncorrectCredentialsException extends RuntimeException {}

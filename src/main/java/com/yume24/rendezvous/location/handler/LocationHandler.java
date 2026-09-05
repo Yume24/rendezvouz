@@ -9,15 +9,14 @@ import reactor.core.publisher.Mono;
 
 @Component
 public class LocationHandler extends AbstractWebsocketHandler {
-    private static final String PATH = "/location";
+  private static final String PATH = "/location";
 
-    public LocationHandler() {
-        super(PATH);
-    }
+  public LocationHandler() {
+    super(PATH);
+  }
 
-    @Override
-    @NonNull
-    public Mono<Void> handle(@NonNull WebSocketSession session) {
-        return session.send(session.receive().map(WebSocketMessage::retain));
-    }
+  @Override
+  @NonNull public Mono<Void> handle(@NonNull WebSocketSession session) {
+    return session.send(session.receive().map(WebSocketMessage::retain));
+  }
 }

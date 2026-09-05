@@ -16,11 +16,11 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 @RequestMapping("/ticket")
 public class TicketController {
-    private final TicketService ticketService;
+  private final TicketService ticketService;
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Mono<TicketDTO> getTicket(@AuthenticationPrincipal Jwt jwt) {
-        return ticketService.createTicket(jwt.getSubject());
-    }
+  @PostMapping
+  @ResponseStatus(HttpStatus.CREATED)
+  public Mono<TicketDTO> getTicket(@AuthenticationPrincipal Jwt jwt) {
+    return ticketService.createTicket(jwt.getSubject());
+  }
 }

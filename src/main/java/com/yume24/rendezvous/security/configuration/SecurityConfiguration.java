@@ -1,6 +1,10 @@
 package com.yume24.rendezvous.security.configuration;
 
+import static com.yume24.rendezvous.jwt.JwtConfiguration.ROLE_CLAIM;
+import static com.yume24.rendezvous.jwt.JwtConfiguration.ROLE_PREFIX;
+
 import com.yume24.rendezvous.websocket.filter.WebsocketSecurityFilter;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,44 +25,41 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.context.NoOpServerSecurityContextRepository;
 import reactor.core.publisher.Mono;
 
-import java.util.List;
-
-import static com.yume24.rendezvous.jwt.JwtConfiguration.ROLE_CLAIM;
-import static com.yume24.rendezvous.jwt.JwtConfiguration.ROLE_PREFIX;
-
 @Configuration
 @EnableWebFluxSecurity
 @RequiredArgsConstructor
 class SecurityConfiguration {
-    private final WebsocketSecurityFilter websocketSecurityFilter;
+  private final WebsocketSecurityFilter websocketSecurityFilter;
 
-    @Bean
-    SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http, List<Customizer<AuthorizeExchangeSpec>> exchangeSpecCustomizers) {
-        exchangeSpecCustomizers.forEach(http::authorizeExchange);
-        return http
-                .csrf(ServerHttpSecurity.CsrfSpec::disable)
-                .cors(ServerHttpSecurity.CorsSpec::disable)
-                .oauth2ResourceServer(oAuth2 -> oAuth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())))
-                .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
-                .authorizeExchange(ex -> ex.anyExchange().authenticated())
-                .addFilterAt(websocketSecurityFilter, SecurityWebFiltersOrder.AUTHENTICATION)
-                .build();
-    }
+  @Bean
+  SecurityWebFilterChain securityWebFilterChain(
+      ServerHttpSecurity http, List<Customizer<AuthorizeExchangeSpec>> exchangeSpecCustomizers) {
+    exchangeSpecCustomizers.forEach(http::authorizeExchange);
+    return http.csrf(ServerHttpSecurity.CsrfSpec::disable)
+        .cors(ServerHttpSecurity.CorsSpec::disable)
+        .oauth2ResourceServer(
+            oAuth2 ->
+                oAuth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())))
+        .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
+        .authorizeExchange(ex -> ex.anyExchange().authenticated())
+        .addFilterAt(websocketSecurityFilter, SecurityWebFiltersOrder.AUTHENTICATION)
+        .build();
+  }
 
-    @Bean
-    Converter<Jwt, Mono<AbstractAuthenticationToken>> jwtAuthenticationConverter() {
-        var authoritiesConverter = new JwtGrantedAuthoritiesConverter();
-        authoritiesConverter.setAuthorityPrefix(ROLE_PREFIX);
-        authoritiesConverter.setAuthoritiesClaimName(ROLE_CLAIM);
+  @Bean
+  Converter<Jwt, Mono<AbstractAuthenticationToken>> jwtAuthenticationConverter() {
+    var authoritiesConverter = new JwtGrantedAuthoritiesConverter();
+    authoritiesConverter.setAuthorityPrefix(ROLE_PREFIX);
+    authoritiesConverter.setAuthoritiesClaimName(ROLE_CLAIM);
 
-        var jwtConverter = new JwtAuthenticationConverter();
-        jwtConverter.setJwtGrantedAuthoritiesConverter(authoritiesConverter);
+    var jwtConverter = new JwtAuthenticationConverter();
+    jwtConverter.setJwtGrantedAuthoritiesConverter(authoritiesConverter);
 
-        return new ReactiveJwtAuthenticationConverterAdapter(jwtConverter);
-    }
+    return new ReactiveJwtAuthenticationConverterAdapter(jwtConverter);
+  }
 
-    @Bean
-    PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+  @Bean
+  PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 }

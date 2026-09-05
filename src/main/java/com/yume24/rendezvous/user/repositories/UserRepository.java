@@ -1,11 +1,9 @@
 package com.yume24.rendezvous.user.repositories;
 
 import com.yume24.rendezvous.user.entity.User;
+import java.util.UUID;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
-
 @Repository
-public interface UserRepository extends ReactiveCrudRepository<User, UUID> {
-}
+public interface UserRepository extends ReactiveCrudRepository<User, UUID> {}

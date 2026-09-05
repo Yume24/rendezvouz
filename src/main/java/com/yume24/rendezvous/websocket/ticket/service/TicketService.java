@@ -10,15 +10,15 @@ import reactor.core.publisher.Mono;
 @Service
 @RequiredArgsConstructor
 public class TicketService {
-    private final JwtService jwtService;
-    private final TicketRepository ticketRepository;
+  private final JwtService jwtService;
+  private final TicketRepository ticketRepository;
 
-    public Mono<TicketDTO> createTicket(String userId) {
-        var jwt = jwtService.createTicketJwt(userId);
-        return ticketRepository.saveTicket(userId, jwt).thenReturn(new TicketDTO(jwt));
-    }
+  public Mono<TicketDTO> createTicket(String userId) {
+    var jwt = jwtService.createTicketJwt(userId);
+    return ticketRepository.saveTicket(userId, jwt).thenReturn(new TicketDTO(jwt));
+  }
 
-    public Mono<String> getTicket(String userId) {
-        return ticketRepository.getTicket(userId);
-    }
+  public Mono<String> getTicket(String userId) {
+    return ticketRepository.getTicket(userId);
+  }
 }

@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 @ReadingConverter
 @Component
 public class StringToRoleConverter implements R2dbcConverter<String, Role> {
-    @Override
-    public Role convert(@NonNull String source) {
-        return Role.valueOf(source);
-    }
+  @Override
+  public Role convert(@NonNull String source) {
+    return Role.valueOf(source);
+  }
 }

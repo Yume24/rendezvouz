@@ -6,5 +6,5 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 interface GroupMapper {
-    GroupDTO toDto(Group group);
+  GroupDTO toDto(Group group);
 }

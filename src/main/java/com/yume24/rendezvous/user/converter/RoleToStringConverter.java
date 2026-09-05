@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 @WritingConverter
 @Component
 public class RoleToStringConverter implements R2dbcConverter<Role, String> {
-    @Override
-    public String convert(Role source) {
-        return source.getRole();
-    }
+  @Override
+  public String convert(Role source) {
+    return source.getRole();
+  }
 }

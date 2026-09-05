@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class RendezvousApplication {
 
-    static void main(String[] args) {
-        SpringApplication.run(RendezvousApplication.class, args);
-    }
-
+  static void main(String[] args) {
+    SpringApplication.run(RendezvousApplication.class, args);
+  }
 }

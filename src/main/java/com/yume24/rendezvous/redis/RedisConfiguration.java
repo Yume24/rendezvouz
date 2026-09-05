@@ -4,5 +4,5 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RedisConfiguration {
-    public static final String KEY_DELIMITER = ":";
+  public static final String KEY_DELIMITER = ":";
 }

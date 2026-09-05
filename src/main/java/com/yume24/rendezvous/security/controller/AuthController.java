@@ -18,27 +18,27 @@ import reactor.core.publisher.Mono;
 @RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthController implements Customizer<AuthorizeExchangeSpec> {
-    private static final String AUTH_PATH_MATCHER = "/auth/**";
-    private final AuthService authService;
+  private static final String AUTH_PATH_MATCHER = "/auth/**";
+  private final AuthService authService;
 
-    @PostMapping("/login/anonymous")
-    Mono<TokensDTO> anonymousLogin(@Valid @RequestBody AnonymousLoginDTO anonymousLoginDTO) {
-        return authService.anonymousLogin(anonymousLoginDTO.username());
-    }
+  @PostMapping("/login/anonymous")
+  Mono<TokensDTO> anonymousLogin(@Valid @RequestBody AnonymousLoginDTO anonymousLoginDTO) {
+    return authService.anonymousLogin(anonymousLoginDTO.username());
+  }
 
-    @PostMapping("/register")
-    @ResponseStatus(HttpStatus.CREATED)
-    Mono<UserDTO> register(@Valid @RequestBody RegisterDTO registerDTO) {
-        return authService.register(registerDTO.username(), registerDTO.password());
-    }
+  @PostMapping("/register")
+  @ResponseStatus(HttpStatus.CREATED)
+  Mono<UserDTO> register(@Valid @RequestBody RegisterDTO registerDTO) {
+    return authService.register(registerDTO.username(), registerDTO.password());
+  }
 
-    @PostMapping("/login")
-    Mono<TokensDTO> login(@Valid @RequestBody LoginDTO loginDTO) {
-        return authService.login(loginDTO.username(), loginDTO.password());
-    }
+  @PostMapping("/login")
+  Mono<TokensDTO> login(@Valid @RequestBody LoginDTO loginDTO) {
+    return authService.login(loginDTO.username(), loginDTO.password());
+  }
 
-    @Override
-    public void customize(AuthorizeExchangeSpec authorizeExchangeSpec) {
-        authorizeExchangeSpec.pathMatchers(AUTH_PATH_MATCHER).permitAll();
-    }
+  @Override
+  public void customize(AuthorizeExchangeSpec authorizeExchangeSpec) {
+    authorizeExchangeSpec.pathMatchers(AUTH_PATH_MATCHER).permitAll();
+  }
 }
