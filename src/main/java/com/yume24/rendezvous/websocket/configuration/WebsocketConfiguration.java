@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @Configuration
 @RequiredArgsConstructor
 public class WebsocketConfiguration {
-   public static final String WEBSOCKET_PATH = "/ws";
+    public static final String WEBSOCKET_PATH = "/ws";
 
     @Bean
     public HandlerMapping handlerMapping(List<AbstractWebsocketHandler> handlers) {

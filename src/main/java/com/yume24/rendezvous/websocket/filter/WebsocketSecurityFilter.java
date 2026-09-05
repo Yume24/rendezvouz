@@ -17,8 +17,8 @@ import static com.yume24.rendezvous.websocket.configuration.WebsocketConfigurati
 @Component
 @RequiredArgsConstructor
 public class WebsocketSecurityFilter implements WebFilter {
-    private final ReactiveAuthenticationManager authenticationManager;
     private static final String TICKET_QUERY_PARAM = "ticket";
+    private final ReactiveAuthenticationManager authenticationManager;
 
     @Override
     @NonNull
