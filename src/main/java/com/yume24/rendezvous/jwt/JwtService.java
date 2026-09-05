@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.jwt.*;
 import org.springframework.stereotype.Service;
-import reactor.core.publisher.Mono;
 
 import java.time.Instant;
 import java.util.Collection;
@@ -18,7 +17,6 @@ import static com.yume24.rendezvous.jwt.JwtConfiguration.ROLE_PREFIX;
 @RequiredArgsConstructor
 public class JwtService {
     private final JwtEncoder jwtEncoder;
-    private final ReactiveJwtDecoder jwtDecoder;
     @Value("${jwt.issuer}")
     private String issuer;
     @Value("${jwt.expiry.access}")
@@ -43,9 +41,5 @@ public class JwtService {
 
     public String createTicketJwt(String subject) {
         return createJwt(subject, Optional.empty(), ticketExpiry);
-    }
-
-    public Mono<String> getSubjectFromJwt(String token) {
-        return jwtDecoder.decode(token).mapNotNull(Jwt::getSubject);
     }
 }

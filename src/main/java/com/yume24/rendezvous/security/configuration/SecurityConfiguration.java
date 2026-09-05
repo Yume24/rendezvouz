@@ -1,11 +1,14 @@
 package com.yume24.rendezvous.security.configuration;
 
+import com.yume24.rendezvous.websocket.filter.WebsocketSecurityFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
+import org.springframework.security.config.web.server.SecurityWebFiltersOrder;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity.AuthorizeExchangeSpec;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,7 +28,9 @@ import static com.yume24.rendezvous.jwt.JwtConfiguration.ROLE_PREFIX;
 
 @Configuration
 @EnableWebFluxSecurity
+@RequiredArgsConstructor
 class SecurityConfiguration {
+    private final WebsocketSecurityFilter websocketSecurityFilter;
 
     @Bean
     SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http, List<Customizer<AuthorizeExchangeSpec>> exchangeSpecCustomizers) {
@@ -36,6 +41,7 @@ class SecurityConfiguration {
                 .oauth2ResourceServer(oAuth2 -> oAuth2.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter())))
                 .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
                 .authorizeExchange(ex -> ex.anyExchange().authenticated())
+                .addFilterAt(websocketSecurityFilter, SecurityWebFiltersOrder.AUTHENTICATION)
                 .build();
     }
 
