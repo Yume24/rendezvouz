@@ -15,7 +15,7 @@ import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder;
 public class JwtConfiguration {
   public static final String ROLE_CLAIM = "roles";
   public static final String ROLE_PREFIX = "ROLE_";
-  private static final String JWT_ALGORITHM = "HMAC-SHA256";
+  private static final String JWT_ALGORITHM = "HmacSHA256";
 
   @Value("${jwt.secret}")
   private String secret;
