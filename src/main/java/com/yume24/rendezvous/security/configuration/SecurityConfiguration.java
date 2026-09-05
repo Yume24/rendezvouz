@@ -32,11 +32,12 @@ import reactor.core.publisher.Mono;
 @EnableWebFluxSecurity
 @RequiredArgsConstructor
 class SecurityConfiguration {
-  private final WebsocketSecurityFilter websocketSecurityFilter;
 
   @Bean
   SecurityWebFilterChain securityWebFilterChain(
-      ServerHttpSecurity http, List<Customizer<AuthorizeExchangeSpec>> exchangeSpecCustomizers) {
+      ServerHttpSecurity http,
+      List<Customizer<AuthorizeExchangeSpec>> exchangeSpecCustomizers,
+      WebsocketSecurityFilter websocketSecurityFilter) {
     exchangeSpecCustomizers.forEach(http::authorizeExchange);
     return http.csrf(ServerHttpSecurity.CsrfSpec::disable)
         .cors(ServerHttpSecurity.CorsSpec::disable)
