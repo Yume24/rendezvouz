@@ -15,4 +15,6 @@ interface UserMapper {
   User toEntity(AnonymousUser anonymousUser);
 
   User toEntity(RegisteredUser registeredUser);
+
+  AnonymousUser toAnonymousUser(User user, String username);
 }

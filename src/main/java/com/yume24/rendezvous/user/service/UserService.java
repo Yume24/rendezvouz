@@ -3,6 +3,7 @@ package com.yume24.rendezvous.user.service;
 import com.yume24.rendezvous.user.dto.UserDTO;
 import com.yume24.rendezvous.user.entity.AnonymousUser;
 import com.yume24.rendezvous.user.entity.RegisteredUser;
+import com.yume24.rendezvous.user.entity.User;
 import com.yume24.rendezvous.user.exceptions.UserNotFoundException;
 import com.yume24.rendezvous.user.repositories.AnonymousUserRepository;
 import com.yume24.rendezvous.user.repositories.RegisteredUserRepository;
@@ -23,11 +24,12 @@ public class UserService {
   private final UserMapper userMapper;
 
   public Mono<UserDTO> createAnonymousUser(String username) {
-    var anonymousUser = AnonymousUser.builder().username(username).build();
-    var user = userMapper.toEntity(anonymousUser);
+    var user = User.builder().role(AnonymousUser.DEFAULT_ROLE).build();
     return userRepository
         .save(user)
-        .then(anonymousUserRepository.save(anonymousUser).map(userMapper::toDto));
+        .map(savedUser -> userMapper.toAnonymousUser(savedUser, username))
+            .flatMap(anonymousUserRepository::save)
+            .map(userMapper::toDto);
   }
 
   public Mono<UserDTO> createUser(String username, String password) {
