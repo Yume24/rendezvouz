@@ -13,7 +13,7 @@ import org.springframework.data.relational.core.mapping.Table;
 @Getter
 @Setter
 public class RegisteredUser {
-  public static final Role DEFAULT_ROLE = Role.USER;
+  public static final Role DEFAULT_ROLE = Role.REGISTERED;
 
   @Id
   @Column("id")
