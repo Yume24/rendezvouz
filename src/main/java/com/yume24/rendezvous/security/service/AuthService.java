@@ -26,7 +26,7 @@ public class AuthService {
         .map(
             user ->
                 jwtService.createAccessJwt(
-                    user.id().toString(), Optional.of(Set.of(user.type().getType()))))
+                    user.id().toString(), Optional.of(Set.of(user.type().name()))))
         .map(TokensDTO::new);
   }
 
@@ -45,7 +45,7 @@ public class AuthService {
                 var jwt =
                     jwtService.createAccessJwt(
                         user.getId().toString(),
-                        Optional.of(Set.of(UserType.REGISTERED.getType())));
+                        Optional.of(Set.of(UserType.registered.name())));
                 return Mono.just(new TokensDTO(jwt));
               }
               return Mono.error(new IncorrectCredentialsException());

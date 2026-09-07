@@ -4,6 +4,7 @@ import io.r2dbc.spi.ConnectionFactory;
 import java.util.List;
 import org.jspecify.annotations.NonNull;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.r2dbc.config.AbstractR2dbcConfiguration;
 
 @Configuration
@@ -12,7 +13,7 @@ public class R2dbcConfiguration extends AbstractR2dbcConfiguration {
   private final List<Object> converters;
 
   public R2dbcConfiguration(
-      ConnectionFactory connectionFactory, List<R2dbcConverter<?, ?>> converters) {
+      ConnectionFactory connectionFactory, List<Converter<?, ?>> converters) {
     this.connectionFactory = connectionFactory;
     this.converters = converters.stream().map(Object.class::cast).toList();
   }
