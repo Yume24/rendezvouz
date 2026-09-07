@@ -18,13 +18,13 @@ public class UserService {
   private final UserMapper userMapper;
 
   public Mono<UserDTO> createUser(String username) {
-    var user = User.builder().username(username).type(UserType.ANONYMOUS).build();
+    var user = User.builder().username(username).type(UserType.anonymous).build();
     return userRepository.save(user).map(userMapper::toDto);
   }
 
   public Mono<UserDTO> createUser(String username, String password) {
     var registeredUser =
-        User.builder().username(username).password(password).type(UserType.REGISTERED).build();
+        User.builder().username(username).password(password).type(UserType.registered).build();
     return userRepository.save(registeredUser).map(userMapper::toDto);
   }
 
