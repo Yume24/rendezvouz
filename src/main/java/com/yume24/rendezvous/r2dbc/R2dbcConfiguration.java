@@ -12,8 +12,7 @@ public class R2dbcConfiguration extends AbstractR2dbcConfiguration {
   private final ConnectionFactory connectionFactory;
   private final List<Object> converters;
 
-  public R2dbcConfiguration(
-      ConnectionFactory connectionFactory, List<Converter<?, ?>> converters) {
+  public R2dbcConfiguration(ConnectionFactory connectionFactory, List<Converter<?, ?>> converters) {
     this.connectionFactory = connectionFactory;
     this.converters = converters.stream().map(Object.class::cast).toList();
   }

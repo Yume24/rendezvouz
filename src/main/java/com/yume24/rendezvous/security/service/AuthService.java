@@ -44,8 +44,7 @@ public class AuthService {
               if (passwordEncoder.matches(password, user.getPassword())) {
                 var jwt =
                     jwtService.createAccessJwt(
-                        user.getId().toString(),
-                        Optional.of(Set.of(UserType.registered.name())));
+                        user.getId().toString(), Optional.of(Set.of(UserType.registered.name())));
                 return Mono.just(new TokensDTO(jwt));
               }
               return Mono.error(new IncorrectCredentialsException());
