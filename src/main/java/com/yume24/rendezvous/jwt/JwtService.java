@@ -3,12 +3,9 @@ package com.yume24.rendezvous.jwt;
 import static com.yume24.rendezvous.jwt.JwtConfiguration.ROLE_CLAIM;
 import static com.yume24.rendezvous.jwt.JwtConfiguration.ROLE_PREFIX;
 
-import com.yume24.rendezvous.user.entity.Role;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.Optional;
-
-import com.yume24.rendezvous.user.entity.UserType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
@@ -39,9 +36,7 @@ public class JwtService {
             .issuedAt(now)
             .expiresAt(now.plusSeconds(expiry));
     roles.ifPresent(
-        r ->
-            claimsSet.claim(
-                ROLE_CLAIM, r.stream().map(role -> ROLE_PREFIX + role.name()).toList()));
+        r -> claimsSet.claim(ROLE_CLAIM, r.stream().map(role -> ROLE_PREFIX + role).toList()));
     return jwtEncoder.encode(JwtEncoderParameters.from(claimsSet.build())).getTokenValue();
   }
 

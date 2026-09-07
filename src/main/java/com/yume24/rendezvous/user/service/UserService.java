@@ -5,7 +5,6 @@ import com.yume24.rendezvous.user.entity.User;
 import com.yume24.rendezvous.user.entity.UserType;
 import com.yume24.rendezvous.user.exceptions.UserNotFoundException;
 import com.yume24.rendezvous.user.repositories.UserRepository;
-import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,7 +23,8 @@ public class UserService {
   }
 
   public Mono<UserDTO> createUser(String username, String password) {
-    var registeredUser = User.builder().username(username).password(password).type(UserType.REGISTERED).build();
+    var registeredUser =
+        User.builder().username(username).password(password).type(UserType.REGISTERED).build();
     return userRepository.save(registeredUser).map(userMapper::toDto);
   }
 
