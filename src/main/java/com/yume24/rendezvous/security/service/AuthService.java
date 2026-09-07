@@ -4,7 +4,7 @@ import com.yume24.rendezvous.jwt.JwtService;
 import com.yume24.rendezvous.security.dto.TokensDTO;
 import com.yume24.rendezvous.security.exceptions.IncorrectCredentialsException;
 import com.yume24.rendezvous.user.dto.UserDTO;
-import com.yume24.rendezvous.user.entity.RegisteredUser;
+import com.yume24.rendezvous.user.entity.UserType;
 import com.yume24.rendezvous.user.service.UserService;
 import java.util.Optional;
 import java.util.Set;
@@ -22,10 +22,10 @@ public class AuthService {
 
   public Mono<TokensDTO> anonymousLogin(String username) {
     return userService
-        .createAnonymousUser(username)
+        .createUser(username)
         .map(
             user ->
-                jwtService.createAccessJwt(user.id().toString(), Optional.of(Set.of(user.role()))))
+                jwtService.createAccessJwt(user.id().toString(), Optional.of(Set.of(user.type().name()))))
         .map(TokensDTO::new);
   }
 
@@ -43,7 +43,7 @@ public class AuthService {
               if (passwordEncoder.matches(password, user.getPassword())) {
                 var jwt =
                     jwtService.createAccessJwt(
-                        user.getId().toString(), Optional.of(Set.of(RegisteredUser.DEFAULT_ROLE)));
+                        user.getId().toString(), Optional.of(Set.of(UserType.REGISTERED.name())));
                 return Mono.just(new TokensDTO(jwt));
               }
               return Mono.error(new IncorrectCredentialsException());

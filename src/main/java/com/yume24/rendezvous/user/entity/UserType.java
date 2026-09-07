@@ -4,10 +4,9 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-@Getter
-public enum Role {
+public enum UserType {
   ANONYMOUS("anonymous"),
   REGISTERED("registered");
 
-  private final String role;
+  private final String type;
 }

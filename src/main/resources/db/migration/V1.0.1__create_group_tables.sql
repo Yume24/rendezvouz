@@ -1,6 +1,6 @@
 create table groups (
     id uuid primary key default uuidv7(),
-    name varchar(255) not null,
+    name varchar(255),
     created_at timestamptz not null default now(),
     created_by uuid not null references users(id)
 );

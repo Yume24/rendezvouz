@@ -18,9 +18,15 @@ public class User {
   @Column("id")
   private UUID id;
 
+  @Column("username")
+  private String username;
+
+  @Column("password")
+  private String password;
+
+  @Column("type")
+  private UserType type;
+
   @Column("created_at")
   private Instant createdAt;
-
-  @Column("role")
-  private Role role;
 }

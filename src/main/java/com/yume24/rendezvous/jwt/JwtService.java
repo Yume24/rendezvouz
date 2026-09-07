@@ -7,6 +7,8 @@ import com.yume24.rendezvous.user.entity.Role;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.Optional;
+
+import com.yume24.rendezvous.user.entity.UserType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
@@ -28,7 +30,7 @@ public class JwtService {
   @Value("${jwt.expiry.ticket}")
   private long ticketExpiry;
 
-  private String createJwt(String subject, Optional<Collection<Role>> roles, long expiry) {
+  private String createJwt(String subject, Optional<Collection<String>> roles, long expiry) {
     var now = Instant.now();
     var claimsSet =
         JwtClaimsSet.builder()
@@ -43,7 +45,7 @@ public class JwtService {
     return jwtEncoder.encode(JwtEncoderParameters.from(claimsSet.build())).getTokenValue();
   }
 
-  public String createAccessJwt(String subject, Optional<Collection<Role>> roles) {
+  public String createAccessJwt(String subject, Optional<Collection<String>> roles) {
     return createJwt(subject, roles, accessExpiry);
   }
 

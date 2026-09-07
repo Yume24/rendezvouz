@@ -1,12 +1,9 @@
 package com.yume24.rendezvous.user.service;
 
 import com.yume24.rendezvous.user.dto.UserDTO;
-import com.yume24.rendezvous.user.entity.AnonymousUser;
-import com.yume24.rendezvous.user.entity.RegisteredUser;
 import com.yume24.rendezvous.user.entity.User;
+import com.yume24.rendezvous.user.entity.UserType;
 import com.yume24.rendezvous.user.exceptions.UserNotFoundException;
-import com.yume24.rendezvous.user.repositories.AnonymousUserRepository;
-import com.yume24.rendezvous.user.repositories.RegisteredUserRepository;
 import com.yume24.rendezvous.user.repositories.UserRepository;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -19,34 +16,21 @@ import reactor.core.publisher.Mono;
 @Transactional
 public class UserService {
   private final UserRepository userRepository;
-  private final AnonymousUserRepository anonymousUserRepository;
-  private final RegisteredUserRepository registeredUserRepository;
   private final UserMapper userMapper;
 
-  public Mono<UserDTO> createAnonymousUser(String username) {
-    var user = User.builder().role(AnonymousUser.DEFAULT_ROLE).build();
-    return userRepository
-        .save(user)
-        .map(savedUser -> userMapper.toAnonymousUser(savedUser, username))
-            .flatMap(anonymousUserRepository::save)
-            .map(userMapper::toDto);
+  public Mono<UserDTO> createUser(String username) {
+    var user = User.builder().username(username).type(UserType.ANONYMOUS).build();
+    return userRepository.save(user).map(userMapper::toDto);
   }
 
   public Mono<UserDTO> createUser(String username, String password) {
-    var registeredUser = RegisteredUser.builder().username(username).password(password).build();
-    var user = userMapper.toEntity(registeredUser);
-    return userRepository
-        .save(user)
-        .then(registeredUserRepository.save(registeredUser).map(userMapper::toDto));
+    var registeredUser = User.builder().username(username).password(password).type(UserType.REGISTERED).build();
+    return userRepository.save(registeredUser).map(userMapper::toDto);
   }
 
-  public Mono<RegisteredUser> findRegisteredUserByUsername(String username) {
-    return registeredUserRepository
+  public Mono<User> findRegisteredUserByUsername(String username) {
+    return userRepository
         .findByUsername(username)
         .switchIfEmpty(Mono.error(new UserNotFoundException(username)));
-  }
-
-  public Mono<AnonymousUser> getAnonymousUser(UUID id) {
-    return anonymousUserRepository.findById(id);
   }
 }

@@ -1,18 +1,13 @@
-create type user_role as enum ('registered', 'anonymous');
+create type user_type as enum ('registered', 'anonymous');
 
 create table users (
     id uuid primary key default uuidv7(),
-    created_at timestamptz default now() not null,
-    role user_role not null
+    username varchar(255) not null,
+    password char(60),
+    type user_type not null,
+    created_at timestamptz not null default now(),
+    constraint chk_anonymous_user_no_pswd check (type != 'anonymous' or password is not null),
+    constraint chk_registered_user_has_pswd check(type != 'registered' or password is null)
 );
 
-create table anonymous_users (
-    id uuid references users(id) not null,
-    username varchar(63) not null
-);
-
-create table registered_users (
-    id uuid references users(id) not null,
-    username varchar(63) unique not null,
-    password varchar(60) not null
-);
+create unique index on users(username) where type = 'registered';
