@@ -132,9 +132,6 @@
                     <url>jdbc:postgresql://localhost:5432/rendezvous</url>
                     <user>postgres</user>
                     <password>supersecretpassword</password>
-                    <schemas>
-                        <schema>rendezvous</schema>
-                    </schemas>
                 </configuration>
                 <dependencies>
                     <dependency>
