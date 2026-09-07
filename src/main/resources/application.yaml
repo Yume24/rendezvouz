@@ -13,4 +13,8 @@ jwt:
     ticket: 30
 logging:
   level:
-    org.springframework.r2dbc: DEBUG
+    io:
+      r2dbc:
+        postgresql:
+          QUERY: DEBUG
+          PARAM: DEBUG
