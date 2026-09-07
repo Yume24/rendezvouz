@@ -7,7 +7,7 @@ import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-@Table("users_groups")
+@Table("group_membership")
 @Getter
 @Setter
 @AllArgsConstructor
